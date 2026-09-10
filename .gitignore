@@ -1,2 +1,4 @@
 workers/download-tracker/node_modules/
+# Ignore accidental extra tarballs. The counted DEFAULT_ASSET is committed.
 workers/download-tracker/public/*.tar.gz
+!workers/download-tracker/public/embryolock-1.2.0.tar.gz

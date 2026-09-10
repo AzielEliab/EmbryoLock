@@ -9,7 +9,21 @@ This Worker is **human UI + download tracker**. It is not a second FragGate door
 
 Author: **Aziel Eliab** only.
 
-Do **not** deploy from this PR. First deploy binds KV `EMBRYOLOCK_DOWNLOADS` as `DOWNLOADS`.
+Counted tarball (DEFAULT_ASSET, served by `ASSETS.fetch`):
+`public/embryolock-1.2.0.tar.gz`
+
+```
+https://embryolock-download-tracker.vibelock.workers.dev/download?asset=embryolock-1.2.0.tar.gz
+```
+
+One-click install (same Worker):
+`curl -fsSL https://embryolock-download-tracker.vibelock.workers.dev/install.sh | bash`
+
+Rebuild the asset (excludes `workers/` and `.git`):
+
+```bash
+bash workers/download-tracker/scripts/pack-release.sh
+```
 
 ## Law
 
