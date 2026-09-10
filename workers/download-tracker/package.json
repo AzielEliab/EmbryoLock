@@ -1,0 +1,14 @@
+{
+  "name": "embryolock-download-tracker",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "description": "EmbryoLock Worker dual-surface: human UI + counted /download + OpenAPI/MCP pointer to FragGate. Author Aziel Eliab.",
+  "scripts": {
+    "verify": "node scripts/verify-dual-surface.mjs",
+    "verify-mesh": "node scripts/verify-dual-surface.mjs"
+  },
+  "dependencies": {
+    "wrangler": "^4.127.1"
+  }
+}

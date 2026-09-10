@@ -1,0 +1,29 @@
+name = "embryolock-download-tracker"
+main = "src/index.js"
+compatibility_date = "2026-09-06"
+workers_dev = true
+account_id = "ac575a9b822bea2bed97d0ab73aed238"
+
+# Parent binds EMBRYOLOCK_DOWNLOADS as DOWNLOADS on first deploy.
+# Do not invent a live KV id in this PR. Do not deploy from this PR.
+[[kv_namespaces]]
+binding = "DOWNLOADS"
+id = "embryolock-downloads-bind-on-first-deploy"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+# /mcp and /mcp/ must hit the Worker (not ASSETS) so GET/POST MCP is not 404.
+# /v1/* covers /v1/fraggate/*, /v1/mesh/* (AZIEL_RUNTIME proxy) and local /v1/{op}.
+run_worker_first = ["/", "/download", "/download/*", "/stats", "/event", "/go", "/count", "/install.sh", "/v1", "/v1/*", "/openapi.json", "/ai", "/ai/*", "/mcp", "/mcp/", "/cite.json", "/sitemap.xml", "/robots.txt", "/llms.txt", "/ai.txt"]
+
+[vars]
+AZIEL_RUNTIME_ORIGIN = "https://aziel-runtime.vibelock.workers.dev"
+
+[[services]]
+binding = "AZIEL_RUNTIME"
+service = "aziel-runtime"
+
+[observability]
+enabled = true
+head_sampling_rate = 1
