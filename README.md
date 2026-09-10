@@ -4,7 +4,17 @@ EmbryoLock is a local file vault that intentionally prioritizes **data destructi
 
 **v1.2.0** adds the GitBaby dual surface (Worker UI + counted `/download` + OpenAPI/MCP pointer to FragGate). Public identity is **Aziel Eliab** only. FragGate is THE single door — agents use aziel-runtime slug `embryolock`. This Worker is human UI + download tracker. Destructive vault ops (wipe / scorch) are local-only and refuse on the public Worker.
 
-- Product Worker (do not treat as deployed from this PR): `https://embryolock-download-tracker.vibelock.workers.dev/`
+## Counted download (Cloudflare Worker)
+
+**This is the counted download.** The Worker serves the gzip itself (HTTP 200, no 302 to GitHub).
+
+```bash
+curl -fsSL https://embryolock-download-tracker.vibelock.workers.dev/install.sh | bash
+```
+
+- Homepage: https://embryolock-download-tracker.vibelock.workers.dev/
+- Direct tarball: [embryolock-1.2.0.tar.gz](https://embryolock-download-tracker.vibelock.workers.dev/download?asset=embryolock-1.2.0.tar.gz)
+- One-click install: https://embryolock-download-tracker.vibelock.workers.dev/install.sh
 - Skill: `/v1/skill` · Policy: `/v1/policy` · Doctor/Verify: `/v1/doctor` · `/v1/verify`
 - OpenAPI: `/openapi.json` · MCP pointer: `/mcp` · Catalog MCP: `POST https://aziel-runtime.vibelock.workers.dev/mcp`
 - Softwares framing: **Vault/Custody** (sibling to The ARK). Plain→Gate→Lock listing is handled by hubs/runtime.

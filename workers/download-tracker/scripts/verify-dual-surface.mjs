@@ -7,7 +7,24 @@
  * Author: Aziel Eliab. Do not deploy from this check.
  */
 import assert from "node:assert/strict";
+import { readFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import worker from "../src/index.js";
+
+const here = dirname(fileURLToPath(import.meta.url));
+const assetPath = join(here, "../public/embryolock-1.2.0.tar.gz");
+assert.ok(existsSync(assetPath), "DEFAULT_ASSET public/embryolock-1.2.0.tar.gz must exist for ASSETS.fetch");
+const gzipMagic = readFileSync(assetPath).subarray(0, 2);
+assert.deepEqual(Array.from(gzipMagic), [0x1f, 0x8b], "DEFAULT_ASSET must be gzip");
+{
+  const { execFileSync } = await import("node:child_process");
+  const listing = execFileSync("tar", ["-tzf", assetPath], { encoding: "utf8" });
+  assert.match(listing, /embryolock-1\.2\.0\/Open Source Code/);
+  assert.match(listing, /embryolock-1\.2\.0\/install\.sh/);
+  assert.doesNotMatch(listing, /embryolock-1\.2\.0\/workers\//);
+  assert.doesNotMatch(listing, /\/\.git\//);
+}
 import {
   AUTHOR,
   DOMAIN,
@@ -248,6 +265,8 @@ const install = await call("/install.sh");
 assert.equal(install.res.status, 200);
 assert.match(install.text, /Mozilla\/5.0/);
 assert.match(install.text, /local/);
+assert.match(install.text, /\$\{HOST\}\/download\?asset=\$\{ASSET\}/);
+assert.match(install.text, /embryolock-1\.2\.0\.tar\.gz/);
 
 const door = await call("/v1/fraggate/list");
 assert.equal(door.res.status, 200);
