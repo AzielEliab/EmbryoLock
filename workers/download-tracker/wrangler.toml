@@ -4,11 +4,10 @@ compatibility_date = "2026-09-06"
 workers_dev = true
 account_id = "ac575a9b822bea2bed97d0ab73aed238"
 
-# Parent binds EMBRYOLOCK_DOWNLOADS as DOWNLOADS on first deploy.
-# Do not invent a live KV id in this PR. Do not deploy from this PR.
+# Isolated counter: KV namespace EMBRYOLOCK_DOWNLOADS (live).
 [[kv_namespaces]]
 binding = "DOWNLOADS"
-id = "embryolock-downloads-bind-on-first-deploy"
+id = "b11a0629ca0b437eb0d99f7cf5b7dc5c"
 
 [assets]
 directory = "./public"
