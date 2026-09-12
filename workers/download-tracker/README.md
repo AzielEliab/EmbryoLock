@@ -2,7 +2,7 @@
 
 Dual surface for **EmbryoLock** (EL-WP-1.2):
 
-1. **Human software** — black/gold Worker UI, Everblooming sigil, counted `/download`.
+1. **Human software** — black/gold Worker UI, official `/sigil.png` brand mark (empty alt; no public stamp/title), counted `/download`.
 2. **Agent / MCP** — OpenAPI + `GET`/`POST /mcp` pointer to aziel-runtime FragGate slug `embryolock`.
 
 This Worker is **human UI + download tracker**. It is not a second FragGate door.

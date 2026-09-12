@@ -18,6 +18,13 @@ assert.ok(existsSync(assetPath), "DEFAULT_ASSET public/embryolock-1.2.0.tar.gz m
 const gzipMagic = readFileSync(assetPath).subarray(0, 2);
 assert.deepEqual(Array.from(gzipMagic), [0x1f, 0x8b], "DEFAULT_ASSET must be gzip");
 {
+  const sigilPath = join(here, "../public/sigil.png");
+  assert.ok(existsSync(sigilPath), "official public/sigil.png must exist");
+  const sigil = readFileSync(sigilPath);
+  assert.deepEqual(sigil.subarray(0, 8), Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
+  assert.ok(sigil.length > 70_000 && sigil.length < 80_000, "official ~75KB /sigil.png");
+}
+{
   const { execFileSync } = await import("node:child_process");
   const listing = execFileSync("tar", ["-tzf", assetPath], { encoding: "utf8" });
   assert.match(listing, /embryolock-1\.2\.0\/Open Source Code/);
@@ -226,10 +233,21 @@ assert.ok(openapi.data.paths["/mcp"]);
 
 const home = await call("/");
 assert.equal(home.res.status, 200);
-assert.match(home.text, /Everblooming sigil/);
+assert.match(home.text, /src="\/sigil\.png"/);
+assert.match(home.text, /<img class="brandmark" src="\/sigil\.png" width="40" height="40" alt="" decoding="async">/);
+assert.doesNotMatch(home.text, /everbloom/i);
+assert.doesNotMatch(home.text, /<p class="stamp">/);
 assert.match(home.text, /Vault \/ Custody/);
 assert.match(home.text, /Aziel Eliab/);
 assert.match(home.text, /#c9a227/);
+
+const ai = await call("/ai");
+assert.equal(ai.res.status, 200);
+assert.match(ai.text, /src="\/sigil\.png"/);
+assert.match(ai.text, /alt=""/);
+assert.doesNotMatch(ai.text, /everbloom/i);
+assert.doesNotMatch(ai.text, /<p class="stamp">/);
+assert.match(ai.text, /Aziel Eliab/);
 
 const countBefore = await call("/count");
 assert.equal(countBefore.data.views, 1);
