@@ -208,8 +208,7 @@ function aiHtml() {
 </style>
 <body>
   <div class="brandrow">
-    <img class="brandmark" src="/sigil.png" width="40" height="40" alt="Everblooming sigil — Aziel Eliab" decoding="async">
-    <p class="stamp">Everblooming sigil · Aziel Eliab</p>
+    <img class="brandmark" src="/sigil.png" width="40" height="40" alt="" decoding="async">
   </div>
   <h1>EmbryoLock live API</h1>
   <p class="motto">${MOTTO}</p>
